@@ -268,7 +268,7 @@ const PrivacyContent = () => {
             </ul>
             <p>
               To exercise any of these rights, contact us at{" "}
-              <strong>privacy@euroworkmatch.com</strong>. We will respond within
+              <strong>support@euroworkmatch.com</strong>. We will respond within
               30 days. You also have the right to lodge a complaint with your
               local data protection authority.
             </p>
@@ -320,7 +320,7 @@ const PrivacyContent = () => {
             <p>
               While we take every reasonable precaution, no system is completely
               secure. If you suspect a security breach, please contact us
-              immediately at <strong>security@euroworkmatch.com</strong>.
+              immediately at <strong>support@euroworkmatch.com</strong>.
             </p>
           </section>
 
@@ -331,10 +331,7 @@ const PrivacyContent = () => {
               processed through the Platform.
             </p>
             <p>
-              <strong>Data Protection Officer:</strong>{" "}
-              privacy@euroworkmatch.com
-              <br />
-              <strong>General enquiries:</strong> support@euroworkmatch.com
+              <strong>Email:</strong> support@euroworkmatch.com
               <br />
               <strong>Address:</strong> EuroWorkMatch, Data Protection Office,
               EU

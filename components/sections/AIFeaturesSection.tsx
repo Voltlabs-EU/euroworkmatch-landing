@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useState, useEffect, useRef } from "react";
+import { motion, useInView } from "framer-motion";
 import {
   Heart,
   MessageSquare,
@@ -9,6 +10,37 @@ import {
   Bell,
   UserCheck,
 } from "lucide-react";
+
+function CountUp({ target, suffix = "" }: { target: number; suffix?: string }) {
+  const [count, setCount] = useState(0);
+  const ref = useRef<HTMLSpanElement>(null);
+  const inView = useInView(ref, { once: true });
+
+  useEffect(() => {
+    if (!inView) return;
+    let start = 0;
+    const duration = 1500;
+    const step = 16;
+    const increment = target / (duration / step);
+    const timer = setInterval(() => {
+      start += increment;
+      if (start >= target) {
+        setCount(target);
+        clearInterval(timer);
+      } else {
+        setCount(Math.floor(start));
+      }
+    }, step);
+    return () => clearInterval(timer);
+  }, [inView, target]);
+
+  return (
+    <span ref={ref}>
+      {count}
+      {suffix}
+    </span>
+  );
+}
 
 const AIFeaturesSection = () => {
   const features = [
@@ -88,7 +120,7 @@ const AIFeaturesSection = () => {
               <div className="absolute inset-0 rounded-2xl bg-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
               <div className="relative">
-                <div className="w-12 h-12 rounded-xl bg-accent-gradient flex items-center justify-center mb-4 shadow-lg group-hover:shadow-glow transition-shadow duration-300">
+                <div className="w-12 h-12 rounded-xl bg-accent-gradient flex items-center justify-center mb-4 shadow-lg group-hover:shadow-glow group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300">
                   <feature.icon className="w-6 h-6 text-white" />
                 </div>
                 <h3 className="text-lg font-semibold text-foreground mb-2">
@@ -119,7 +151,7 @@ const AIFeaturesSection = () => {
             <div className="w-px h-12 bg-white/20" />
             <div className="text-center">
               <div className="text-4xl md:text-5xl font-bold text-white">
-                12+
+                <CountUp target={12} suffix="+" />
               </div>
               <div className="text-sm text-white/70 mt-1">EU Languages</div>
             </div>

@@ -8,13 +8,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly",
       priority: 1,
     },
-    {
-      url: "https://euroworkmatch.com/blog",
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.7,
-    },
-    {
+{
       url: "https://euroworkmatch.com/terms",
       lastModified: new Date("2026-03-09"),
       changeFrequency: "yearly",

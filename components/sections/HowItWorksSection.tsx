@@ -111,9 +111,9 @@ const HowItWorksSection = () => {
                 <motion.div
                   key={step.title}
                   variants={itemVariants}
-                  className="flex items-start gap-4 p-4 rounded-xl bg-card border border-border hover:border-accent/30 hover:shadow-soft transition-all duration-300"
+                  className="group flex items-start gap-4 p-4 rounded-xl bg-card border border-border hover:border-accent/30 hover:shadow-soft transition-all duration-300"
                 >
-                  <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-accent-gradient flex items-center justify-center shadow-lg">
+                  <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-accent-gradient flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300">
                     <step.icon className="w-5 h-5 text-white" />
                   </div>
                   <div>
@@ -160,9 +160,9 @@ const HowItWorksSection = () => {
                 <motion.div
                   key={step.title}
                   variants={itemVariants}
-                  className="flex items-start gap-4 p-4 rounded-xl bg-card border border-border hover:border-primary/30 hover:shadow-soft transition-all duration-300"
+                  className="group flex items-start gap-4 p-4 rounded-xl bg-card border border-border hover:border-primary/30 hover:shadow-soft transition-all duration-300"
                 >
-                  <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-hero-gradient flex items-center justify-center shadow-lg">
+                  <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-hero-gradient flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300">
                     <step.icon className="w-5 h-5 text-white" />
                   </div>
                   <div>

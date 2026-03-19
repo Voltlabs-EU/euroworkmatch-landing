@@ -41,21 +41,12 @@ export const metadata: Metadata = {
     title: "EuroWorkMatch — Connecting Skilled Workers from India to Europe",
     description:
       "Intelligent platform matching skilled professionals from India with European companies. GDPR compliant, 90%+ automation, no recruiters needed.",
-    images: [
-      {
-        url: "/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "EuroWorkMatch — Smart Global Recruitment Platform",
-      },
-    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "EuroWorkMatch — Connecting Skilled Workers from India to Europe",
     description:
       "Intelligent platform matching skilled professionals from India with European companies. GDPR compliant, 90%+ automation.",
-    images: ["/og-image.png"],
   },
   robots: {
     index: true,

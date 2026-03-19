@@ -77,9 +77,9 @@ export function GdprModal() {
           <div className="bg-muted/50 rounded-xl p-4 border border-border">
             <p className="font-medium text-foreground mb-1">Exercise Your Rights</p>
             <p>
-              To make a data request or lodge a complaint, contact our Data Protection Officer at{" "}
-              <a href="mailto:privacy@euroworkmatch.com" className="text-accent hover:underline">
-                privacy@euroworkmatch.com
+              To make a data request or lodge a complaint, contact us at{" "}
+              <a href="mailto:support@euroworkmatch.com" className="text-accent hover:underline">
+                support@euroworkmatch.com
               </a>
               . We respond within 30 days. You also have the right to contact your national data protection authority.
             </p>
@@ -171,8 +171,8 @@ export function CookiePolicyModal() {
               You can manage or delete cookies through your browser settings at any time. Note that
               disabling essential cookies will prevent you from using the platform. For questions,
               contact{" "}
-              <a href="mailto:privacy@euroworkmatch.com" className="text-accent hover:underline">
-                privacy@euroworkmatch.com
+              <a href="mailto:support@euroworkmatch.com" className="text-accent hover:underline">
+                support@euroworkmatch.com
               </a>
               .
             </p>
@@ -202,53 +202,24 @@ export function ContactModal() {
         </DialogHeader>
         <DialogBody className="space-y-4 text-sm text-muted-foreground">
           <p>
-            We&apos;re a small team building EuroWorkMatch. Reach out to the right inbox and
+            We&apos;re a small team building EuroWorkMatch. Reach out and
             we&apos;ll get back to you promptly.
           </p>
 
           <div className="space-y-3">
-            {[
-              {
-                label: "General Enquiries",
-                email: "info@euroworkmatch.com",
-                desc: "Questions about the platform, partnerships, or press",
-              },
-              {
-                label: "User Support",
-                email: "support@euroworkmatch.com",
-                desc: "Help with your account, billing, or technical issues",
-              },
-              {
-                label: "Privacy & Data",
-                email: "privacy@euroworkmatch.com",
-                desc: "GDPR requests, data deletion, and privacy concerns",
-              },
-              {
-                label: "Legal",
-                email: "legal@euroworkmatch.com",
-                desc: "Terms of service, compliance, and legal enquiries",
-              },
-              {
-                label: "Security",
-                email: "security@euroworkmatch.com",
-                desc: "Report a vulnerability or suspected security breach",
-              },
-            ].map(({ label, email, desc }) => (
-              <a
-                key={email}
-                href={`mailto:${email}`}
-                className="flex items-start gap-4 p-4 rounded-xl border border-border hover:border-accent/40 hover:bg-accent/5 transition-all group"
-              >
-                <div className="w-9 h-9 rounded-lg bg-muted flex items-center justify-center shrink-0 group-hover:bg-accent/10 transition-colors">
-                  <Mail className="w-4 h-4 text-muted-foreground group-hover:text-accent transition-colors" />
-                </div>
+            <a
+              href="mailto:support@euroworkmatch.com"
+              className="flex items-start gap-4 p-4 rounded-xl border border-border hover:border-accent/40 hover:bg-accent/5 transition-all group"
+            >
+              <div className="w-9 h-9 rounded-lg bg-muted flex items-center justify-center shrink-0 group-hover:bg-accent/10 transition-colors">
+                <Mail className="w-4 h-4 text-muted-foreground group-hover:text-accent transition-colors" />
+              </div>
                 <div>
-                  <div className="font-medium text-foreground">{label}</div>
-                  <div className="text-accent text-xs mt-0.5">{email}</div>
-                  <div className="text-xs text-muted-foreground mt-1">{desc}</div>
+                  <div className="font-medium text-foreground">Support</div>
+                  <div className="text-accent text-xs mt-0.5">support@euroworkmatch.com</div>
+                  <div className="text-xs text-muted-foreground mt-1">For any questions, issues, or feedback</div>
                 </div>
-              </a>
-            ))}
+            </a>
           </div>
         </DialogBody>
       </DialogContent>
@@ -258,25 +229,23 @@ export function ContactModal() {
 
 // ─── Pricing Modal ────────────────────────────────────────────────────────────
 export function PricingModal() {
-  const plans = [
-    {
-      name: "Workers",
-      price: "Free",
-      sub: "Always, forever",
-      Icon: Globe,
-      accent: "text-accent border-accent/30 bg-accent/5",
-      badge: null,
-      features: [
-        "Create & manage your profile",
-        "Upload certifications & documents",
-        "Swipe on job listings",
-        "Mutual matching with employers",
-        "In-app messaging after match",
-        "Profile completeness score",
-        "Job alerts for new listings",
-      ],
-      cta: { label: "Join Free", href: "https://app.euroworkmatch.com/auth?role=worker" },
-    },
+  const workerPlan = {
+    name: "Workers",
+    price: "Free",
+    sub: "Always, forever",
+    Icon: Globe,
+    features: [
+      "Create & manage your profile",
+      "Upload certifications & documents",
+      "Swipe on job listings",
+      "Mutual matching with employers",
+      "In-app messaging after match",
+      "Profile completeness score",
+      "Job alerts for new listings",
+    ],
+  };
+
+  const employerPlans = [
     {
       name: "Basic",
       price: "€49",
@@ -292,7 +261,6 @@ export function PricingModal() {
         "Standard analytics",
         "Email support",
       ],
-      cta: { label: "Get Started", href: "https://app.euroworkmatch.com/auth?role=employer" },
     },
     {
       name: "Professional",
@@ -310,7 +278,6 @@ export function PricingModal() {
         "Saved candidate lists",
         "Priority support",
       ],
-      cta: { label: "Get Started", href: "https://app.euroworkmatch.com/auth?role=employer" },
     },
     {
       name: "Enterprise",
@@ -328,7 +295,6 @@ export function PricingModal() {
         "Custom integrations & API access",
         "24/7 premium support",
       ],
-      cta: { label: "Contact Us", href: "mailto:info@euroworkmatch.com" },
     },
   ];
 
@@ -343,42 +309,73 @@ export function PricingModal() {
           </DialogDescription>
         </DialogHeader>
         <DialogBody>
-          <div className="grid sm:grid-cols-2 gap-4">
-            {plans.map(({ name, price, sub, Icon, accent, badge, features, cta }) => (
-              <div
-                key={name}
-                className={`relative rounded-xl border p-5 flex flex-col ${accent}`}
-              >
-                {badge && (
-                  <span className="absolute -top-2.5 left-1/2 -translate-x-1/2 text-xs font-bold px-3 py-0.5 rounded-full bg-primary text-primary-foreground">
-                    {badge}
-                  </span>
-                )}
-                <div className="flex items-center gap-2 mb-3">
-                  <Icon className="w-4 h-4" />
-                  <span className="font-semibold text-sm">{name}</span>
-                </div>
-                <div className="mb-4">
-                  <span className="text-3xl font-bold text-foreground">{price}</span>
-                  <span className="text-xs text-muted-foreground ml-1">{sub}</span>
-                </div>
-                <ul className="space-y-2 mb-5 flex-1">
-                  {features.map((f) => (
-                    <li key={f} className="flex items-start gap-2 text-xs text-muted-foreground">
-                      <Check className="w-3.5 h-3.5 text-accent mt-0.5 shrink-0" />
-                      {f}
-                    </li>
-                  ))}
-                </ul>
-                <a
-                  href={cta.href}
-                  className="block text-center text-xs font-semibold py-2 px-4 rounded-lg bg-accent text-white hover:bg-accent/90 transition-colors"
-                >
-                  {cta.label}
-                </a>
-              </div>
-            ))}
+          {/* Workers plan */}
+          <div className="relative rounded-xl border p-5 flex flex-col text-accent border-accent/30 bg-accent/5 mb-6">
+            <div className="flex items-center gap-2 mb-3">
+              <workerPlan.Icon className="w-4 h-4" />
+              <span className="font-semibold text-sm">{workerPlan.name}</span>
+            </div>
+            <div className="mb-4">
+              <span className="text-3xl font-bold text-foreground">{workerPlan.price}</span>
+              <span className="text-xs text-muted-foreground ml-1">{workerPlan.sub}</span>
+            </div>
+            <ul className="space-y-2 mb-5 flex-1">
+              {workerPlan.features.map((f) => (
+                <li key={f} className="flex items-start gap-2 text-xs text-muted-foreground">
+                  <Check className="w-3.5 h-3.5 text-accent mt-0.5 shrink-0" />
+                  {f}
+                </li>
+              ))}
+            </ul>
+            <a
+              href="https://app.euroworkmatch.com/auth?role=worker"
+              className="block text-center text-xs font-semibold py-2 px-4 rounded-lg bg-accent text-white hover:bg-accent/90 transition-colors"
+            >
+              Join Free
+            </a>
           </div>
+
+          {/* Employer plans group */}
+          <div>
+            <h3 className="text-sm font-semibold text-foreground mb-3">For Employers</h3>
+            <div className="grid sm:grid-cols-3 gap-4">
+              {employerPlans.map(({ name, price, sub, Icon, accent, badge, features }) => (
+                <div
+                  key={name}
+                  className={`relative rounded-xl border p-5 flex flex-col ${accent}`}
+                >
+                  {badge && (
+                    <span className="absolute -top-2.5 left-1/2 -translate-x-1/2 text-xs font-bold px-3 py-0.5 rounded-full bg-primary text-primary-foreground">
+                      {badge}
+                    </span>
+                  )}
+                  <div className="flex items-center gap-2 mb-3">
+                    <Icon className="w-4 h-4" />
+                    <span className="font-semibold text-sm">{name}</span>
+                  </div>
+                  <div className="mb-4">
+                    <span className="text-3xl font-bold text-foreground">{price}</span>
+                    <span className="text-xs text-muted-foreground ml-1">{sub}</span>
+                  </div>
+                  <ul className="space-y-2 flex-1">
+                    {features.map((f) => (
+                      <li key={f} className="flex items-start gap-2 text-xs text-muted-foreground">
+                        <Check className="w-3.5 h-3.5 text-accent mt-0.5 shrink-0" />
+                        {f}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+            <a
+              href="https://app.euroworkmatch.com/auth?role=employer"
+              className="block text-center text-sm font-semibold py-3 px-6 mt-5 rounded-lg bg-accent text-white hover:bg-accent/90 transition-colors"
+            >
+              Get Started as an Employer
+            </a>
+          </div>
+
           <p className="text-xs text-muted-foreground text-center mt-4">
             All employer plans billed monthly. Cancel anytime. Payments processed securely via Stripe.
           </p>
@@ -442,8 +439,8 @@ export function AboutModal() {
             <p className="font-medium text-foreground mb-1">Get in Touch</p>
             <p>
               We&apos;re always open to feedback, partnerships, and collaboration. Reach us at{" "}
-              <a href="mailto:info@euroworkmatch.com" className="text-accent hover:underline">
-                info@euroworkmatch.com
+              <a href="mailto:support@euroworkmatch.com" className="text-accent hover:underline">
+                support@euroworkmatch.com
               </a>
             </p>
           </div>

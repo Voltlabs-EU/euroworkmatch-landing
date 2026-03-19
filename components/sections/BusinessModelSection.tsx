@@ -3,6 +3,19 @@
 import { motion } from "framer-motion";
 import { Check } from "lucide-react";
 
+const listContainerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.08 },
+  },
+};
+
+const listItemVariants = {
+  hidden: { opacity: 0, x: -10 },
+  visible: { opacity: 1, x: 0, transition: { duration: 0.3 } },
+};
+
 const BusinessModelSection = () => {
   const workerFeatures = [
     "Create & manage your profile",
@@ -82,16 +95,26 @@ const BusinessModelSection = () => {
                 <span className="text-sm font-semibold text-accent">🇮🇳 Workers</span>
                 <span className="text-xs font-bold text-accent bg-accent/10 px-2 py-0.5 rounded-full">Always Free</span>
               </div>
-              <div className="divide-y divide-border">
+              <motion.div
+                className="divide-y divide-border"
+                variants={listContainerVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+              >
                 {workerFeatures.map((feat) => (
-                  <div key={feat} className="flex items-center gap-3 px-5 py-3">
+                  <motion.div
+                    key={feat}
+                    variants={listItemVariants}
+                    className="flex items-center gap-3 px-5 py-3"
+                  >
                     <div className="w-5 h-5 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0">
                       <Check className="w-3 h-3 text-accent" />
                     </div>
                     <span className="text-sm text-foreground">{feat}</span>
-                  </div>
+                  </motion.div>
                 ))}
-              </div>
+              </motion.div>
             </div>
 
             {/* Employers panel */}
@@ -100,9 +123,19 @@ const BusinessModelSection = () => {
                 <span className="text-sm font-semibold text-foreground">🇪🇺 Employers</span>
                 <span className="text-xs font-bold text-primary bg-primary/10 px-2 py-0.5 rounded-full">Free + Paid</span>
               </div>
-              <div className="divide-y divide-border">
+              <motion.div
+                className="divide-y divide-border"
+                variants={listContainerVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+              >
                 {employerFeatures.map((feat) => (
-                  <div key={feat.label} className="flex items-center justify-between px-5 py-3">
+                  <motion.div
+                    key={feat.label}
+                    variants={listItemVariants}
+                    className="flex items-center justify-between px-5 py-3"
+                  >
                     <div className="flex items-center gap-3">
                       <div className={`w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 ${feat.paid ? "bg-primary/10" : "bg-accent/10"}`}>
                         <Check className={`w-3 h-3 ${feat.paid ? "text-primary" : "text-accent"}`} />
@@ -116,9 +149,9 @@ const BusinessModelSection = () => {
                     }`}>
                       {feat.paid ? "Paid" : "Free"}
                     </span>
-                  </div>
+                  </motion.div>
                 ))}
-              </div>
+              </motion.div>
             </div>
           </motion.div>
         </div>

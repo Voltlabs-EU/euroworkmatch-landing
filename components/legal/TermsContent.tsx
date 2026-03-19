@@ -328,7 +328,7 @@ const TermsContent = () => {
             <h2>12. Contact</h2>
             <p>If you have questions about these Terms, please contact us at:</p>
             <p>
-              <strong>Email:</strong> legal@euroworkmatch.com
+              <strong>Email:</strong> support@euroworkmatch.com
               <br />
               <strong>Address:</strong> EuroWorkMatch, Legal Department, EU
             </p>

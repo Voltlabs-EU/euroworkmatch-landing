@@ -133,11 +133,11 @@ const Footer = () => {
             </p>
             <div className="flex items-center gap-4">
               <a
-                href="mailto:info@euroworkmatch.com"
+                href="mailto:support@euroworkmatch.com"
                 className="flex items-center gap-2 text-sm text-white/60 hover:text-teal-light transition-colors"
               >
                 <Mail className="w-4 h-4" />
-                info@euroworkmatch.com
+                support@euroworkmatch.com
               </a>
             </div>
           </div>
