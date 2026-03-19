@@ -1,60 +1,29 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Check, X } from "lucide-react";
+import { Check } from "lucide-react";
 
 const BusinessModelSection = () => {
-  const pricingItems = [
-    {
-      item: "Worker Registration",
-      free: true,
-      description: "Create profile, upload CV",
-    },
-    {
-      item: "Profile Translation",
-      free: true,
-      description: "Automatic document processing",
-    },
-    {
-      item: "Employer Browse Limited",
-      free: true,
-      description: "View anonymized profiles",
-    },
-    {
-      item: "Full Profile Access",
-      free: false,
-      description: "See complete worker details",
-    },
-    {
-      item: "Direct Contact",
-      free: false,
-      description: "Message workers directly",
-    },
-    {
-      item: "Partner Agency Services",
-      free: false,
-      description: "Visa, housing, contracts",
-    },
-    {
-      item: "Training Institute Listings",
-      free: false,
-      description: "Advertise programs",
-    },
+  const workerFeatures = [
+    "Create & manage your profile",
+    "Upload certifications & documents",
+    "Swipe on job listings",
+    "Get matched with employers",
+    "Message matched employers",
   ];
 
-  const itemVariants = {
-    hidden: { opacity: 0, x: -20 },
-    visible: (i: number) => ({
-      opacity: 1,
-      x: 0,
-      transition: { delay: i * 0.08, duration: 0.4 },
-    }),
-  };
+  const employerFeatures = [
+    { label: "Browse worker profiles (limited)", paid: false },
+    { label: "Swipe on worker profiles", paid: false },
+    { label: "View full profile + documents", paid: true },
+    { label: "Contact & message workers", paid: true },
+    { label: "Post job listings", paid: true },
+  ];
 
   return (
     <section className="py-24 bg-background">
       <div className="container mx-auto px-4">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+        <div className="grid lg:grid-cols-2 gap-12 items-start">
           {/* Left: Text Content */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
@@ -69,7 +38,7 @@ const BusinessModelSection = () => {
               <br />
               <span className="text-gradient">Paid for Access.</span>
             </h2>
-            <p className="mt-4 text-lg text-muted-foreground dark:text-slate-400">
+            <p className="mt-4 text-lg text-muted-foreground">
               EuroWorkMatch only facilitates digital introductions — we are not a
               staffing agency. The platform connects employers and candidates
               directly, with no employment responsibility.
@@ -81,100 +50,75 @@ const BusinessModelSection = () => {
               </h3>
               <ul className="space-y-3">
                 <li className="flex items-center gap-3">
-                  <div className="w-6 h-6 rounded-full bg-accent/10 flex items-center justify-center">
+                  <div className="w-6 h-6 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0">
                     <Check className="w-4 h-4 text-accent" />
                   </div>
-                  <span className="text-sm text-muted-foreground dark:text-slate-400">
-                    <strong className="text-foreground">Workers:</strong> Always
-                    free
+                  <span className="text-sm text-muted-foreground">
+                    <strong className="text-foreground">Workers:</strong> Always free — no hidden costs
                   </span>
                 </li>
                 <li className="flex items-center gap-3">
-                  <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center">
+                  <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
                     <Check className="w-4 h-4 text-primary" />
                   </div>
-                  <span className="text-sm text-muted-foreground dark:text-slate-400">
-                    <strong className="text-foreground">Employers:</strong> Pay
-                    for contact/unlock
-                  </span>
-                </li>
-                <li className="flex items-center gap-3">
-                  <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center">
-                    <Check className="w-4 h-4 text-primary" />
-                  </div>
-                  <span className="text-sm text-muted-foreground dark:text-slate-400">
-                    <strong className="text-foreground">Partner Agencies:</strong>{" "}
-                    Pay for platform usage
-                  </span>
-                </li>
-                <li className="flex items-center gap-3">
-                  <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center">
-                    <Check className="w-4 h-4 text-primary" />
-                  </div>
-                  <span className="text-sm text-muted-foreground dark:text-slate-400">
-                    <strong className="text-foreground">Training Institutes:</strong>{" "}
-                    Pay to advertise
+                  <span className="text-sm text-muted-foreground">
+                    <strong className="text-foreground">Employers:</strong> Browse free, pay to unlock & contact
                   </span>
                 </li>
               </ul>
             </div>
           </motion.div>
 
-          {/* Right: Pricing Table */}
+          {/* Right: Two-panel comparison */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="bg-card rounded-2xl border border-border shadow-elevated overflow-hidden"
+            className="space-y-4"
           >
-            <div className="grid grid-cols-3 bg-muted/50 px-6 py-4 border-b border-border">
-              <div className="text-sm font-semibold text-foreground">
-                Feature
+            {/* Workers panel */}
+            <div className="rounded-2xl border border-accent/30 overflow-hidden">
+              <div className="px-5 py-3 bg-accent/10 border-b border-accent/20 flex items-center justify-between">
+                <span className="text-sm font-semibold text-accent">🇮🇳 Workers</span>
+                <span className="text-xs font-bold text-accent bg-accent/10 px-2 py-0.5 rounded-full">Always Free</span>
               </div>
-              <div className="text-sm font-semibold text-accent text-center">
-                Workers
-              </div>
-              <div className="text-sm font-semibold text-primary dark:text-teal-light text-center">
-                Employers
+              <div className="divide-y divide-border">
+                {workerFeatures.map((feat) => (
+                  <div key={feat} className="flex items-center gap-3 px-5 py-3">
+                    <div className="w-5 h-5 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0">
+                      <Check className="w-3 h-3 text-accent" />
+                    </div>
+                    <span className="text-sm text-foreground">{feat}</span>
+                  </div>
+                ))}
               </div>
             </div>
-            <div className="divide-y divide-border">
-              {pricingItems.map((item, i) => (
-                <motion.div
-                  key={item.item}
-                  className="grid grid-cols-3 px-6 py-4 items-center hover:bg-muted/30 transition-colors"
-                  custom={i}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true }}
-                  variants={itemVariants}
-                >
-                  <div>
-                    <div className="text-sm font-medium text-foreground">
-                      {item.item}
-                    </div>
-                    <div className="text-xs text-muted-foreground dark:text-slate-500">
-                      {item.description}
-                    </div>
-                  </div>
-                  <div className="flex justify-center">
-                    {item.free ? (
-                      <div className="w-6 h-6 rounded-full bg-accent/10 flex items-center justify-center">
-                        <Check className="w-4 h-4 text-accent" />
+
+            {/* Employers panel */}
+            <div className="rounded-2xl border border-border overflow-hidden">
+              <div className="px-5 py-3 bg-muted/50 border-b border-border flex items-center justify-between">
+                <span className="text-sm font-semibold text-foreground">🇪🇺 Employers</span>
+                <span className="text-xs font-bold text-primary bg-primary/10 px-2 py-0.5 rounded-full">Free + Paid</span>
+              </div>
+              <div className="divide-y divide-border">
+                {employerFeatures.map((feat) => (
+                  <div key={feat.label} className="flex items-center justify-between px-5 py-3">
+                    <div className="flex items-center gap-3">
+                      <div className={`w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 ${feat.paid ? "bg-primary/10" : "bg-accent/10"}`}>
+                        <Check className={`w-3 h-3 ${feat.paid ? "text-primary" : "text-accent"}`} />
                       </div>
-                    ) : (
-                      <div className="w-6 h-6 rounded-full bg-muted flex items-center justify-center">
-                        <X className="w-4 h-4 text-muted-foreground" />
-                      </div>
-                    )}
-                  </div>
-                  <div className="flex justify-center">
-                    <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center">
-                      <Check className="w-4 h-4 text-primary" />
+                      <span className="text-sm text-foreground">{feat.label}</span>
                     </div>
+                    <span className={`text-xs font-semibold px-2 py-0.5 rounded-full flex-shrink-0 ml-2 ${
+                      feat.paid
+                        ? "bg-primary/10 text-primary"
+                        : "bg-accent/10 text-accent"
+                    }`}>
+                      {feat.paid ? "Paid" : "Free"}
+                    </span>
                   </div>
-                </motion.div>
-              ))}
+                ))}
+              </div>
             </div>
           </motion.div>
         </div>

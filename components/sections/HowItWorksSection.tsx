@@ -19,15 +19,15 @@ const HowItWorksSection = () => {
     },
     {
       icon: FileText,
-      title: "Automated Profile Building",
+      title: "Build Your Profile",
       description:
-        "System automatically translates and builds your professional profile",
+        "Complete your profile with skills, experience, certifications and documents. A profile strength score guides you.",
     },
     {
       icon: MessageSquare,
       title: "Get Matched",
       description:
-        "Receive introductions from interested European employers",
+        "Swipe on jobs you like. When an employer also likes your profile, it's a mutual match — and you can start messaging directly.",
     },
   ];
 
@@ -46,7 +46,7 @@ const HowItWorksSection = () => {
       icon: CheckCircle2,
       title: "Hire with Confidence",
       description:
-        "Partner agencies handle visas, housing, and contracts",
+        "Verified worker profiles give you the evidence you need. Once matched, communicate and coordinate directly inside the platform.",
     },
   ];
 
@@ -77,11 +77,10 @@ const HowItWorksSection = () => {
             How It Works
           </span>
           <h2 className="mt-4 text-3xl md:text-4xl font-bold text-foreground">
-            Simple. Automated. Effective.
+            Simple. Mutual. Direct.
           </h2>
           <p className="mt-4 text-lg text-muted-foreground dark:text-slate-400 max-w-2xl mx-auto">
-            EuroWorkMatch is Tinder for labour — connecting two sides of the
-            market through smart matching
+            Both sides swipe. Only mutual interest creates a match. No cold outreach, no wasted time.
           </p>
         </motion.div>
 

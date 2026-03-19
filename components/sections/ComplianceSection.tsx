@@ -60,7 +60,7 @@ const ComplianceSection = () => {
             <br />
             Designed for Compliance.
           </h2>
-          <p className="mt-4 text-lg text-slate-300 max-w-2xl mx-auto">
+          <p className="mt-4 text-lg text-white/70 max-w-2xl mx-auto">
             We take data protection and legal compliance seriously. EuroWorkMatch
             operates with full transparency and EU regulatory compliance.
           </p>
@@ -83,7 +83,7 @@ const ComplianceSection = () => {
               <h3 className="text-lg font-semibold text-white mb-2">
                 {item.title}
               </h3>
-              <p className="text-sm text-slate-300 leading-relaxed">
+              <p className="text-sm text-white/70 leading-relaxed">
                 {item.description}
               </p>
             </motion.div>

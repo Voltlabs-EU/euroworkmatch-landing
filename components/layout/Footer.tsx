@@ -3,30 +3,10 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { Globe, Mail, MapPin } from "lucide-react";
+import { GdprModal, CookiePolicyModal, ContactModal, AboutModal, PricingModal } from "./FooterModals";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
-
-  const footerLinks = {
-    platform: [
-      { label: "How It Works", href: "#how-it-works" },
-      { label: "For Workers", href: "#for-workers" },
-      { label: "For Employers", href: "#for-employers" },
-      { label: "Features", href: "#ai-features" },
-    ],
-    company: [
-      { label: "About Us", href: "#" },
-      { label: "Partner Agencies", href: "#" },
-      { label: "Training Institutes", href: "#" },
-      { label: "Contact", href: "#" },
-    ],
-    legal: [
-      { label: "Terms of Use", href: "/terms" },
-      { label: "Privacy Policy", href: "/privacy" },
-      { label: "GDPR", href: "#" },
-      { label: "Cookie Policy", href: "#" },
-    ],
-  };
 
   return (
     <footer className="bg-navy text-white">
@@ -48,13 +28,16 @@ const Footer = () => {
                 Euro<span className="text-teal-light">WorkMatch</span>
               </span>
             </Link>
-            <p className="text-sm text-slate-400 mb-4">
+            <p className="text-sm text-white/60 mb-4">
               Smart Platform for Global Labour Matching. Connecting skilled
               workers from India with European companies.
             </p>
-            <div className="flex items-center gap-2 text-sm text-slate-400">
+            <div className="flex items-center gap-2 text-sm text-white/60 mb-2">
               <MapPin className="w-4 h-4" />
               <span>EU-Based Operations</span>
+            </div>
+            <div className="text-sm text-white/40 mt-1">
+              🇩🇪 🇳🇱 🇫🇷 🇧🇪 🇦🇹 🇨🇿 🇵🇱 🇷🇴 🇸🇰 🇭🇺
             </div>
           </motion.div>
 
@@ -67,11 +50,16 @@ const Footer = () => {
           >
             <h4 className="font-semibold text-white mb-4">Platform</h4>
             <ul className="space-y-2">
-              {footerLinks.platform.map((link) => (
+              {[
+                { label: "How It Works", href: "#how-it-works" },
+                { label: "For Workers", href: "#for-workers" },
+                { label: "For Employers", href: "#for-employers" },
+                { label: "Features", href: "#ai-features" },
+              ].map((link) => (
                 <li key={link.label}>
                   <a
                     href={link.href}
-                    className="text-sm text-slate-400 hover:text-teal-light transition-colors"
+                    className="text-sm text-white/60 hover:text-teal-light transition-colors"
                   >
                     {link.label}
                   </a>
@@ -89,16 +77,17 @@ const Footer = () => {
           >
             <h4 className="font-semibold text-white mb-4">Company</h4>
             <ul className="space-y-2">
-              {footerLinks.company.map((link) => (
-                <li key={link.label}>
-                  <a
-                    href={link.href}
-                    className="text-sm text-slate-400 hover:text-teal-light transition-colors"
-                  >
-                    {link.label}
-                  </a>
-                </li>
-              ))}
+              <li><AboutModal /></li>
+              <li>
+                <a
+                  href="mailto:support@euroworkmatch.com"
+                  className="text-sm text-white/60 hover:text-teal-light transition-colors"
+                >
+                  Support
+                </a>
+              </li>
+              <li><PricingModal /></li>
+              <li><ContactModal /></li>
             </ul>
           </motion.div>
 
@@ -111,33 +100,44 @@ const Footer = () => {
           >
             <h4 className="font-semibold text-white mb-4">Legal</h4>
             <ul className="space-y-2">
-              {footerLinks.legal.map((link) => (
-                <li key={link.label}>
-                  <Link
-                    href={link.href}
-                    className="text-sm text-slate-400 hover:text-teal-light transition-colors"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
+              <li>
+                <Link
+                  href="/terms"
+                  className="text-sm text-white/60 hover:text-teal-light transition-colors"
+                >
+                  Terms of Use
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/privacy"
+                  className="text-sm text-white/60 hover:text-teal-light transition-colors"
+                >
+                  Privacy Policy
+                </Link>
+              </li>
+              <li><GdprModal /></li>
+              <li><CookiePolicyModal /></li>
             </ul>
           </motion.div>
         </div>
 
         {/* Bottom Bar */}
         <div className="mt-12 pt-8 border-t border-white/10">
+          <p className="text-xs text-white/40 text-center mb-4">
+            EuroWorkMatch facilitates introductions between workers and employers. We are not a staffing agency and accept no employment responsibility.
+          </p>
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <p className="text-sm text-slate-400">
+            <p className="text-sm text-white/60">
               © {currentYear} EuroWorkMatch. All rights reserved.
             </p>
             <div className="flex items-center gap-4">
               <a
-                href="mailto:info@euroworkmatch.eu"
-                className="flex items-center gap-2 text-sm text-slate-400 hover:text-teal-light transition-colors"
+                href="mailto:info@euroworkmatch.com"
+                className="flex items-center gap-2 text-sm text-white/60 hover:text-teal-light transition-colors"
               >
                 <Mail className="w-4 h-4" />
-                info@euroworkmatch.eu
+                info@euroworkmatch.com
               </a>
             </div>
           </div>

@@ -2,51 +2,51 @@
 
 import { motion } from "framer-motion";
 import {
-  Languages,
-  Brain,
-  MessageSquareText,
+  Heart,
+  MessageSquare,
   ShieldCheck,
-  FileBarChart,
-  Clock,
+  BarChart2,
+  Bell,
+  UserCheck,
 } from "lucide-react";
 
 const AIFeaturesSection = () => {
   const features = [
     {
-      icon: Languages,
-      title: "Automatic Translation",
+      icon: Heart,
+      title: "Swipe on What Interests You",
       description:
-        "Reads and translates CVs and documents between languages instantly",
+        "Browse jobs or candidates and swipe right on what fits. A match only forms when both sides want it — no spam, no cold outreach.",
     },
     {
-      icon: Brain,
-      title: "Smart Matching",
+      icon: MessageSquare,
+      title: "Chat Directly After a Match",
       description:
-        "Detects skills, job titles and calculates relevance for perfect matches",
-    },
-    {
-      icon: MessageSquareText,
-      title: "24/7 Chat Support",
-      description:
-        "Support available around the clock for workers and employers",
+        "A private chat opens the moment you match. Ask questions, share details, move fast — no agency or recruiter involved.",
     },
     {
       icon: ShieldCheck,
-      title: "Document Verification",
+      title: "Show Real Proof, Not Just Claims",
       description:
-        "Automatically verifies documents and filters fake accounts",
+        "Workers upload certificates and qualification documents. Employers see verified evidence before swiping — not just a job title.",
     },
     {
-      icon: FileBarChart,
-      title: "Automated Reporting",
+      icon: BarChart2,
+      title: "See How Your Profile Performs",
       description:
-        "Generates invoices, reports and analytics automatically",
+        "Track how many employers viewed or swiped on your profile. Know what's working and what to improve to get more matches.",
     },
     {
-      icon: Clock,
-      title: "Instant Processing",
+      icon: Bell,
+      title: "Get Notified When It Matters",
       description:
-        "No waiting — matching, communication and billing happen in real-time",
+        "New job posted that fits your skills? You'll get an alert instantly. No need to check every day — we do that for you.",
+    },
+    {
+      icon: UserCheck,
+      title: "Build a Profile That Gets Seen",
+      description:
+        "A step-by-step completeness score guides you. The more you fill in, the higher you rank — and the more employers swipe right.",
     },
   ];
 
@@ -64,13 +64,12 @@ const AIFeaturesSection = () => {
             Platform Features
           </span>
           <h2 className="mt-4 text-3xl md:text-4xl font-bold text-foreground">
-            No Recruiters. No HR Staff.
+            Everything You Need.
             <br />
-            <span className="text-gradient">Just Automation.</span>
+            <span className="text-gradient">Built Into the Platform.</span>
           </h2>
           <p className="mt-4 text-lg text-muted-foreground dark:text-slate-400 max-w-2xl mx-auto">
-            All core processes — matching, translation, communication,
-            verification and billing — are handled entirely automatically
+            Matching, messaging, document verification, profile analytics, and more — all in one place.
           </p>
         </motion.div>
 
@@ -103,7 +102,7 @@ const AIFeaturesSection = () => {
           ))}
         </div>
 
-        {/* Automation Rate Highlight */}
+        {/* Stats Bar */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -113,21 +112,21 @@ const AIFeaturesSection = () => {
           <div className="inline-flex items-center gap-4 px-8 py-4 rounded-2xl bg-hero-gradient">
             <div className="text-center">
               <div className="text-4xl md:text-5xl font-bold text-white">
-                90%+
+                Free
               </div>
-              <div className="text-sm text-slate-300 mt-1">Automation Rate</div>
+              <div className="text-sm text-white/70 mt-1">For Workers</div>
             </div>
             <div className="w-px h-12 bg-white/20" />
             <div className="text-center">
               <div className="text-4xl md:text-5xl font-bold text-white">
-                24/7
+                12+
               </div>
-              <div className="text-sm text-slate-300 mt-1">Operation</div>
+              <div className="text-sm text-white/70 mt-1">EU Languages</div>
             </div>
             <div className="w-px h-12 bg-white/20" />
             <div className="text-center">
-              <div className="text-4xl md:text-5xl font-bold text-white">0</div>
-              <div className="text-sm text-slate-300 mt-1">HR Staff Needed</div>
+              <div className="text-4xl md:text-5xl font-bold text-white">EU</div>
+              <div className="text-sm text-white/70 mt-1">Compliant</div>
             </div>
           </div>
         </motion.div>

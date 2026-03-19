@@ -19,7 +19,7 @@ const CTASection = () => {
             Ready to Get Started?
           </h2>
           <p className="mt-4 text-lg text-muted-foreground dark:text-slate-400 max-w-xl mx-auto">
-            Join thousands of workers and employers already using EuroWorkMatch
+            EuroWorkMatch is launching now. Be among the first workers and employers on the platform.
           </p>
         </motion.div>
 
@@ -49,8 +49,8 @@ const CTASection = () => {
               <ul className="space-y-2 mb-8">
                 {[
                   "Free to join",
-                  "Auto-translated profile",
-                  "Direct employer contact",
+                  "Build your own profile with guidance",
+                  "Message matched employers directly",
                 ].map((item) => (
                   <li
                     key={item}
@@ -98,19 +98,18 @@ const CTASection = () => {
               <h3 className="text-2xl font-bold text-white mb-2">
                 For Employers
               </h3>
-              <p className="text-slate-300 mb-6">
-                Find skilled workers from India with the exact qualifications you
-                need through intelligent matching.
+              <p className="text-white/80 mb-6">
+                Browse profiles of skilled workers from India and swipe on candidates that fit your open roles.
               </p>
               <ul className="space-y-2 mb-8">
                 {[
                   "Browse profiles free",
                   "Pay only for access",
-                  "Partner support available",
+                  "Verified certifications on every profile",
                 ].map((item) => (
                   <li
                     key={item}
-                    className="flex items-center gap-2 text-sm text-slate-300"
+                    className="flex items-center gap-2 text-sm text-white/80"
                   >
                     <div className="w-1.5 h-1.5 rounded-full bg-teal" />
                     {item}

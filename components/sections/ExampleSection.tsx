@@ -33,10 +33,10 @@ const ExampleSection = () => {
                 </div>
                 <div>
                   <h3 className="text-xl font-bold text-foreground">
-                    AgroWorld
+                    AgroWorld Transport
                   </h3>
-                  <p className="text-sm text-muted-foreground dark:text-slate-400">
-                    European Agricultural Equipment Company
+                  <p className="text-sm text-muted-foreground">
+                    European Road Transport & Logistics Company
                   </p>
                 </div>
               </div>
@@ -72,10 +72,10 @@ const ExampleSection = () => {
                 </h4>
                 <div className="grid sm:grid-cols-2 gap-4">
                   {[
-                    "System identifies workers with cooling unit expertise",
-                    "Automatic translation of Indian certifications",
-                    "Instant matching with qualified technicians",
-                    "Partner agencies handle visa & relocation",
+                    "Workers with cooling unit expertise create verified profiles",
+                    "View uploaded certifications and qualification documents directly",
+                    "Mutual matching ensures both sides are genuinely interested",
+                    "Communicate directly with matched candidates in the platform",
                   ].map((benefit, index) => (
                     <div key={index} className="flex items-start gap-3">
                       <CheckCircle className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
@@ -91,7 +91,7 @@ const ExampleSection = () => {
             {/* Footer */}
             <div className="px-8 py-4 bg-accent/5 border-t border-border">
               <p className="text-sm text-center text-muted-foreground dark:text-slate-400">
-                <strong className="text-foreground">Result:</strong> AgroWorld
+                <strong className="text-foreground">Result:</strong> AgroWorld Transport
                 finds qualified specialists without traditional recruitment costs
                 or delays.
               </p>

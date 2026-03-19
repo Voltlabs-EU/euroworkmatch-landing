@@ -67,11 +67,11 @@ const HeroSection = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-lg md:text-xl text-slate-300 max-w-2xl mx-auto mb-10"
+            className="text-lg md:text-xl text-white/80 max-w-2xl mx-auto mb-10"
           >
-            EuroWorkMatch is the intelligent platform that matches skilled
+            EuroWorkMatch is the platform that matches skilled
             professionals with European companies facing labour shortages —
-            fully automated, no recruiters required.
+            swipe, match, and connect directly. No agencies. No middlemen.
           </motion.p>
 
           {/* CTA Buttons */}
@@ -114,7 +114,7 @@ const HeroSection = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.5 }}
-            className="mt-12 flex flex-wrap items-center justify-center gap-6 text-sm text-slate-400"
+            className="mt-12 flex flex-wrap items-center justify-center gap-6 text-sm text-white/60"
           >
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 rounded-full bg-teal" />
@@ -126,11 +126,11 @@ const HeroSection = () => {
             </div>
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 rounded-full bg-teal" />
-              <span>90%+ Automation Rate</span>
+              <span>Free for Workers</span>
             </div>
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 rounded-full bg-teal" />
-              <span>24/7 Support</span>
+              <span>Email Support</span>
             </div>
           </motion.div>
         </div>

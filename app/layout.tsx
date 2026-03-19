@@ -18,7 +18,7 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 export const metadata: Metadata = {
   metadataBase: new URL("https://euroworkmatch.com"),
   title: {
-    default: "EuroWorkMatch — Connecting Skilled Workers from India to Europe",
+    default: "EuroWorkMatch",
     template: "%s | EuroWorkMatch",
   },
   description:
