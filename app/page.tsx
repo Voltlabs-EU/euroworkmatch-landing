@@ -18,7 +18,7 @@ const organizationSchema = {
     "EuroWorkMatch connects skilled workers from India with European companies through intelligent AI-powered matching.",
   contactPoint: {
     "@type": "ContactPoint",
-    email: "info@euroworkmatch.eu",
+    email: "support@euroworkmatch.com",
     contactType: "customer support",
     areaServed: ["EU", "IN"],
     availableLanguage: ["English"],
