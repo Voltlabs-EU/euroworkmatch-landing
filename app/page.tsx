@@ -5,7 +5,6 @@ import HowItWorksSection from "@/components/sections/HowItWorksSection";
 import AIFeaturesSection from "@/components/sections/AIFeaturesSection";
 import ExampleSection from "@/components/sections/ExampleSection";
 import BusinessModelSection from "@/components/sections/BusinessModelSection";
-import ComplianceSection from "@/components/sections/ComplianceSection";
 import CTASection from "@/components/sections/CTASection";
 
 const organizationSchema = {
@@ -110,7 +109,7 @@ export default function HomePage() {
         <AIFeaturesSection />
         <ExampleSection />
         <BusinessModelSection />
-        <ComplianceSection />
+
         <CTASection />
       </main>
       <Footer />

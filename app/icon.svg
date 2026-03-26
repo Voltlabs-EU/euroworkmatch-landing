@@ -1,14 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <!-- Background circle -->
-  <circle cx="16" cy="16" r="16" fill="#0d9488"/>
-  <!-- Globe outline -->
+  <circle cx="16" cy="16" r="16" fill="#3B82F6"/>
   <circle cx="16" cy="16" r="9" fill="none" stroke="white" stroke-width="1.5"/>
-  <!-- Equator line -->
   <line x1="7" y1="16" x2="25" y2="16" stroke="white" stroke-width="1.5"/>
-  <!-- Vertical meridian (oval) -->
   <ellipse cx="16" cy="16" rx="4.5" ry="9" fill="none" stroke="white" stroke-width="1.5"/>
-  <!-- Top cap line -->
   <path d="M 9.5 11 Q 16 9 22.5 11" fill="none" stroke="white" stroke-width="1.5"/>
-  <!-- Bottom cap line -->
   <path d="M 9.5 21 Q 16 23 22.5 21" fill="none" stroke="white" stroke-width="1.5"/>
 </svg>

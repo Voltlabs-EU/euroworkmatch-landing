@@ -10,7 +10,7 @@ export default async function Image() {
     (
       <div
         style={{
-          background: "linear-gradient(135deg, #1e293b 0%, #0f172a 100%)",
+          background: "#09090B",
           width: "100%",
           height: "100%",
           display: "flex",
@@ -21,17 +21,17 @@ export default async function Image() {
           position: "relative",
         }}
       >
-        {/* Accent glow */}
+        {/* Blue glow */}
         <div
           style={{
             position: "absolute",
             top: -100,
             right: -100,
-            width: 400,
-            height: 400,
+            width: 500,
+            height: 500,
             borderRadius: "50%",
-            background: "rgba(20, 184, 166, 0.15)",
-            filter: "blur(80px)",
+            background: "rgba(59, 130, 246, 0.12)",
+            filter: "blur(100px)",
           }}
         />
         <div
@@ -39,11 +39,11 @@ export default async function Image() {
             position: "absolute",
             bottom: -80,
             left: -80,
-            width: 300,
-            height: 300,
+            width: 350,
+            height: 350,
             borderRadius: "50%",
-            background: "rgba(20, 184, 166, 0.1)",
-            filter: "blur(60px)",
+            background: "rgba(59, 130, 246, 0.08)",
+            filter: "blur(80px)",
           }}
         />
 
@@ -61,7 +61,7 @@ export default async function Image() {
               width: 64,
               height: 64,
               borderRadius: 16,
-              background: "linear-gradient(135deg, #14b8a6, #2dd4bf)",
+              background: "#3B82F6",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
@@ -83,8 +83,8 @@ export default async function Image() {
             </svg>
           </div>
           <div style={{ display: "flex", fontSize: 48, fontWeight: 800 }}>
-            <span style={{ color: "#f8fafc" }}>Euro</span>
-            <span style={{ color: "#14b8a6" }}>WorkMatch</span>
+            <span style={{ color: "#FFFFFF" }}>Euro</span>
+            <span style={{ color: "#3B82F6" }}>WorkMatch</span>
           </div>
         </div>
 
@@ -92,7 +92,7 @@ export default async function Image() {
         <div
           style={{
             fontSize: 28,
-            color: "rgba(248, 250, 252, 0.7)",
+            color: "rgba(255, 255, 255, 0.6)",
             textAlign: "center",
             maxWidth: 700,
             lineHeight: 1.4,
@@ -109,7 +109,7 @@ export default async function Image() {
             left: 0,
             right: 0,
             height: 6,
-            background: "linear-gradient(90deg, #14b8a6, #2dd4bf, #14b8a6)",
+            background: "linear-gradient(90deg, #2563EB, #3B82F6, #60A5FA, #3B82F6, #2563EB)",
           }}
         />
 
@@ -134,10 +134,10 @@ export default async function Image() {
                 alignItems: "center",
               }}
             >
-              <span style={{ fontSize: 32, fontWeight: 700, color: "#14b8a6" }}>
+              <span style={{ fontSize: 32, fontWeight: 700, color: "#3B82F6" }}>
                 {stat.value}
               </span>
-              <span style={{ fontSize: 14, color: "rgba(248, 250, 252, 0.5)" }}>
+              <span style={{ fontSize: 14, color: "rgba(255, 255, 255, 0.4)" }}>
                 {stat.label}
               </span>
             </div>

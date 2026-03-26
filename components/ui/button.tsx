@@ -10,23 +10,19 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          "bg-primary text-primary-foreground hover:bg-primary/90 shadow-md hover:shadow-lg",
+          "bg-blue-600 text-white hover:bg-blue-500 shadow-md shadow-blue-500/20 hover:shadow-lg hover:shadow-blue-500/30",
         destructive:
-          "bg-destructive text-destructive-foreground hover:bg-destructive/90 dark:bg-red-600 dark:text-white dark:hover:bg-red-700",
+          "bg-destructive text-destructive-foreground hover:bg-destructive/90",
         outline:
-          "border-2 border-input bg-background hover:bg-accent hover:text-accent-foreground dark:border-slate-600 dark:text-slate-200 dark:hover:bg-slate-800 dark:hover:text-white",
+          "border border-zinc-700 bg-transparent text-foreground hover:bg-zinc-800 hover:border-zinc-600",
         secondary:
-          "bg-secondary text-secondary-foreground hover:bg-secondary/80 dark:bg-slate-700 dark:text-slate-100 dark:hover:bg-slate-600",
+          "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost:
-          "hover:bg-accent/10 hover:text-accent-foreground dark:text-slate-300 dark:hover:bg-slate-700/50 dark:hover:text-white",
-        link: "text-primary underline-offset-4 hover:underline dark:text-accent",
-        // WorkMatch custom variants
-        hero: "bg-gradient-to-r from-teal-500 to-teal-400 text-white shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-[0.98]",
+          "hover:bg-white/5 text-zinc-400 hover:text-foreground",
+        link: "text-blue-400 underline-offset-4 hover:underline",
+        hero: "bg-blue-600 text-white shadow-lg shadow-blue-500/25 hover:bg-blue-500 hover:shadow-xl hover:shadow-blue-500/35 hover:scale-[1.02] active:scale-[0.98]",
         "hero-outline":
-          "border-2 border-teal-400/30 bg-teal-400/10 text-white backdrop-blur-sm hover:bg-teal-400/20 hover:border-teal-400/50",
-        navy: "bg-gradient-to-r from-slate-800 to-slate-700 text-white shadow-md hover:shadow-lg hover:scale-[1.02] dark:from-slate-700 dark:to-slate-600",
-        "teal-glow":
-          "bg-teal-500 text-white shadow-[0_0_20px_rgba(20,184,166,0.4)] hover:brightness-110",
+          "border border-zinc-700 text-zinc-300 hover:bg-white/5 hover:border-zinc-500 hover:text-white",
       },
       size: {
         default: "h-10 px-4 py-2",

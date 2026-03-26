@@ -8,8 +8,8 @@ export default function manifest(): MetadataRoute.Manifest {
       "Intelligent platform matching skilled professionals from India with European companies.",
     start_url: "/",
     display: "standalone",
-    background_color: "#0f172a",
-    theme_color: "#14b8a6",
+    background_color: "#09090B",
+    theme_color: "#3B82F6",
     icons: [
       {
         src: "/icon-192.png",

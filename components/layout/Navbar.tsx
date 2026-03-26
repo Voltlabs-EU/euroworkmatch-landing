@@ -1,179 +1,80 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import Link from "next/link";
-import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "framer-motion";
-import { Button } from "@/components/ui/button";
-import { Menu, X, Globe, Users, Building2 } from "lucide-react";
-import { ThemeToggle } from "@/components/ui/ThemeToggle";
+import { useState } from "react";
+import {
+  Navbar as ResizableNavbar,
+  NavBody,
+  NavItems,
+  MobileNav,
+  NavbarLogo,
+  NavbarButton,
+  MobileNavHeader,
+  MobileNavToggle,
+  MobileNavMenu,
+} from "@/components/ui/resizable-navbar";
 
-const navLinks = [
-  { label: "How It Works", href: "#how-it-works" },
-  { label: "For Workers", href: "#for-workers" },
-  { label: "For Employers", href: "#for-employers" },
-  { label: "Features", href: "#ai-features" },
+const navItems = [
+  { name: "Workers", link: "#how-it-works" },
+  { name: "Employers", link: "#for-employers" },
+  { name: "Features", link: "#ai-features" },
 ];
 
-const sectionIds = navLinks.map((l) => l.href.slice(1));
-
 const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const [activeSection, setActiveSection] = useState<string>("");
-
-  const { scrollY } = useScroll();
-  useMotionValueEvent(scrollY, "change", (latest) => {
-    setScrolled(latest > 50);
-  });
-
-  // IntersectionObserver for active nav link
-  useEffect(() => {
-    const observers: IntersectionObserver[] = [];
-
-    sectionIds.forEach((id) => {
-      const el = document.getElementById(id);
-      if (!el) return;
-
-      const observer = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting) {
-            setActiveSection(id);
-          }
-        },
-        { rootMargin: "-40% 0px -55% 0px" }
-      );
-      observer.observe(el);
-      observers.push(observer);
-    });
-
-    return () => observers.forEach((o) => o.disconnect());
-  }, []);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
-    <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? "bg-background/95 backdrop-blur-lg border-b border-border/50 shadow-sm"
-          : "bg-transparent border-b border-transparent"
-      }`}
-    >
-      <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-16 lg:h-20">
-          <Link href="/" className="flex items-center gap-2">
-            <div className="w-10 h-10 rounded-xl bg-accent-gradient flex items-center justify-center">
-              <Globe className="w-5 h-5 text-accent-foreground" />
-            </div>
-            <span
-              className={`text-xl font-bold transition-colors duration-300 ${
-                scrolled ? "text-foreground" : "text-white"
-              }`}
-            >
-              Euro<span className="text-accent">WorkMatch</span>
-            </span>
-          </Link>
-
-          <div className="hidden lg:flex items-center gap-8">
-            {navLinks.map((link) => {
-              const isActive = activeSection === link.href.slice(1);
-              return (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  className={`relative text-sm font-medium transition-colors duration-300 ${
-                    scrolled
-                      ? isActive
-                        ? "text-accent"
-                        : "text-muted-foreground hover:text-foreground"
-                      : isActive
-                        ? "text-accent"
-                        : "text-white/70 hover:text-white"
-                  }`}
-                >
-                  {link.label}
-                  {isActive && (
-                    <motion.div
-                      layoutId="activeNav"
-                      className="absolute -bottom-1 left-0 right-0 h-0.5 bg-accent rounded-full"
-                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                    />
-                  )}
-                </a>
-              );
-            })}
-          </div>
-
-          <div className="hidden lg:flex items-center gap-3">
-            <ThemeToggle />
-            <Button variant="ghost" size="sm" asChild>
-              <Link href="https://app.euroworkmatch.com/auth">
-                <Users className="w-4 h-4 mr-1" />
-                For Workers
-              </Link>
-            </Button>
-            <Button variant="hero" size="sm" asChild>
-              <Link href="https://app.euroworkmatch.com/auth">
-                <Building2 className="w-4 h-4 mr-1" />
-                For Employers
-              </Link>
-            </Button>
-          </div>
-
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="lg:hidden p-2 rounded-lg hover:bg-muted transition-colors"
-            aria-label="Toggle menu"
+    <ResizableNavbar>
+      {/* Desktop Navigation */}
+      <NavBody>
+        <NavbarLogo />
+        <NavItems items={navItems} />
+        <div className="flex items-center gap-4">
+          <NavbarButton
+            href="https://app.euroworkmatch.com/auth"
+            variant="primary"
           >
-            {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
+            Sign In
+          </NavbarButton>
         </div>
-      </div>
+      </NavBody>
 
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            className="lg:hidden bg-background border-b border-border"
-          >
-            <div className="container mx-auto px-4 py-4 space-y-4">
-              {navLinks.map((link) => (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  onClick={() => setIsOpen(false)}
-                  className={`block py-2 text-sm font-medium transition-colors ${
-                    activeSection === link.href.slice(1)
-                      ? "text-accent"
-                      : "text-muted-foreground hover:text-foreground"
-                  }`}
-                >
-                  {link.label}
-                </a>
-              ))}
-              <div className="flex flex-col gap-2 pt-4 border-t border-border">
-                <div className="flex items-center justify-between py-2">
-                  <span className="text-sm text-muted-foreground">Theme</span>
-                  <ThemeToggle />
-                </div>
-                <Button variant="ghost" size="sm" className="justify-start" asChild>
-                  <Link href="https://app.euroworkmatch.com/auth" onClick={() => setIsOpen(false)}>
-                    <Users className="w-4 h-4 mr-2" />
-                    For Workers
-                  </Link>
-                </Button>
-                <Button variant="hero" size="sm" className="justify-start" asChild>
-                  <Link href="https://app.euroworkmatch.com/auth" onClick={() => setIsOpen(false)}>
-                    <Building2 className="w-4 h-4 mr-2" />
-                    For Employers
-                  </Link>
-                </Button>
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </nav>
+      {/* Mobile Navigation */}
+      <MobileNav>
+        <MobileNavHeader>
+          <NavbarLogo />
+          <MobileNavToggle
+            isOpen={isMobileMenuOpen}
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          />
+        </MobileNavHeader>
+
+        <MobileNavMenu
+          isOpen={isMobileMenuOpen}
+          onClose={() => setIsMobileMenuOpen(false)}
+        >
+          {navItems.map((item, idx) => (
+            <a
+              key={`mobile-link-${idx}`}
+              href={item.link}
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="text-zinc-400 hover:text-white transition-colors"
+            >
+              <span className="block">{item.name}</span>
+            </a>
+          ))}
+          <div className="flex w-full flex-col gap-4">
+            <NavbarButton
+              href="https://app.euroworkmatch.com/auth"
+              onClick={() => setIsMobileMenuOpen(false)}
+              variant="primary"
+              className="w-full"
+            >
+              Sign In
+            </NavbarButton>
+          </div>
+        </MobileNavMenu>
+      </MobileNav>
+    </ResizableNavbar>
   );
 };
 

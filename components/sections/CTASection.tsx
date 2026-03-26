@@ -1,89 +1,109 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useEffect, useRef } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Users, Building2 } from "lucide-react";
-
-const bulletContainerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.1, delayChildren: 0.2 },
-  },
-};
-
-const bulletItemVariants = {
-  hidden: { opacity: 0, x: -8 },
-  visible: { opacity: 1, x: 0, transition: { duration: 0.3 } },
-};
+import { ArrowRight, Users, Building2, Sparkles } from "lucide-react";
 
 const CTASection = () => {
-  return (
-    <section id="for-workers" className="py-24 bg-background">
-      <div className="container mx-auto px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-12"
-        >
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground">
-            Ready to Get Started?
-          </h2>
-          <p className="mt-4 text-lg text-muted-foreground dark:text-slate-400 max-w-xl mx-auto">
-            EuroWorkMatch is launching now. Be among the first workers and employers on the platform.
-          </p>
-        </motion.div>
+  const sectionRef = useRef<HTMLElement>(null);
 
-        <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-          {/* Workers CTA */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="relative p-8 rounded-2xl bg-accent-gradient overflow-hidden group"
-          >
-            {/* Decorative elements */}
-            <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-2xl" />
-            <div className="absolute bottom-0 left-0 w-24 h-24 bg-white/5 rounded-full blur-xl" />
+  useEffect(() => {
+    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReduced) return;
+
+    let ctx: ReturnType<typeof import("gsap")["default"]["context"]> | undefined;
+
+    (async () => {
+      const gsap = (await import("gsap")).default;
+      const { ScrollTrigger } = await import("gsap/ScrollTrigger");
+      gsap.registerPlugin(ScrollTrigger);
+
+      ctx = gsap.context(() => {
+        gsap.from(".cta-header", {
+          scrollTrigger: { trigger: ".cta-header", start: "top 85%" },
+          opacity: 0,
+          y: 50,
+          duration: 0.8,
+          ease: "power3.out",
+        });
+
+        gsap.from(".cta-card-left", {
+          scrollTrigger: { trigger: ".cta-card-left", start: "top 85%" },
+          opacity: 0,
+          x: -40,
+          rotateY: 5,
+          duration: 0.8,
+          ease: "power3.out",
+        });
+
+        gsap.from(".cta-card-right", {
+          scrollTrigger: { trigger: ".cta-card-right", start: "top 85%" },
+          opacity: 0,
+          x: 40,
+          rotateY: -5,
+          duration: 0.8,
+          ease: "power3.out",
+        });
+      }, sectionRef);
+    })();
+
+    return () => { ctx?.revert(); };
+  }, []);
+
+  return (
+    <section id="for-workers" ref={sectionRef} className="py-32 lg:py-40 bg-[#09090B] relative overflow-hidden">
+      {/* Background glows */}
+      <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-[400px] h-[400px] bg-blue-600/[0.06] rounded-full blur-[120px]" />
+      <div className="absolute top-1/2 right-1/4 -translate-y-1/2 w-[300px] h-[300px] bg-blue-500/[0.04] rounded-full blur-[100px]" />
+
+      <div className="container mx-auto px-4 max-w-6xl relative">
+        <div className="cta-header text-center mb-16">
+          <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-xs font-semibold text-blue-400 mb-6">
+            <Sparkles className="w-3.5 h-3.5" />
+            Get Started
+          </span>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight">
+            Your next opportunity
+            <br />
+            <span className="text-gradient-blue">starts here</span>
+          </h2>
+          <p className="mt-5 text-base md:text-lg text-zinc-500 font-light max-w-xl mx-auto leading-relaxed">
+            Be among the first on the platform. Whether you&apos;re hiring or looking for work in Europe.
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto" style={{ perspective: "1200px" }}>
+          {/* Workers CTA — Blue gradient */}
+          <div className="cta-card-left relative p-8 rounded-2xl overflow-hidden bg-gradient-to-br from-blue-600 to-blue-700 group">
+            {/* Decorative glow */}
+            <div className="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full blur-3xl" />
+            <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-blue-400/20 rounded-full blur-2xl" />
 
             <div className="relative">
-              <div className="w-14 h-14 rounded-xl bg-white/20 flex items-center justify-center mb-6">
+              <div className="w-14 h-14 rounded-2xl bg-white/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                 <Users className="w-7 h-7 text-white" />
               </div>
-              <h3 className="text-2xl font-bold text-white mb-2">
-                For Workers
-              </h3>
-              <p className="text-white/80 mb-6">
-                Create your free profile and get discovered by European
-                employers looking for your skills.
+              <h3 className="text-2xl font-bold text-white mb-2">For Workers</h3>
+              <p className="text-blue-100/80 mb-6">
+                Create your free profile and get discovered by European employers
+                looking for your skills.
               </p>
-              <motion.ul
-                className="space-y-2 mb-8"
-                variants={bulletContainerVariants}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-              >
+              <ul className="space-y-2.5 mb-8">
                 {[
-                  "Free to join",
-                  "Build your own profile with guidance",
+                  "Always 100% free",
+                  "Build your profile with step-by-step guidance",
                   "Message matched employers directly",
                 ].map((item) => (
-                  <motion.li
-                    key={item}
-                    variants={bulletItemVariants}
-                    className="flex items-center gap-2 text-sm text-white/90"
-                  >
+                  <li key={item} className="flex items-center gap-2 text-sm text-white/90">
                     <div className="w-1.5 h-1.5 rounded-full bg-white/60" />
                     {item}
-                  </motion.li>
+                  </li>
                 ))}
-              </motion.ul>
+              </ul>
               <Button
                 size="lg"
-                className="w-full bg-white text-accent hover:bg-white/90"
+                className="w-full bg-white text-blue-700 hover:bg-blue-50 font-bold shadow-lg"
                 asChild
               >
                 <Link
@@ -98,54 +118,37 @@ const CTASection = () => {
                 </Link>
               </Button>
             </div>
-          </motion.div>
+          </div>
 
-          {/* Employers CTA */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="relative p-8 rounded-2xl bg-hero-gradient overflow-hidden group"
-          >
-            {/* Decorative elements */}
-            <div className="absolute top-0 right-0 w-32 h-32 bg-teal/20 rounded-full blur-2xl" />
-            <div className="absolute bottom-0 left-0 w-24 h-24 bg-teal/10 rounded-full blur-xl" />
+          {/* Employers CTA — Dark with blue accent */}
+          <div className="cta-card-right relative p-8 rounded-2xl overflow-hidden bg-zinc-900 border border-zinc-700/50 group">
+            <div className="absolute top-0 right-0 w-40 h-40 bg-blue-500/5 rounded-full blur-3xl" />
 
             <div className="relative">
-              <div className="w-14 h-14 rounded-xl bg-white/20 flex items-center justify-center mb-6">
-                <Building2 className="w-7 h-7 text-white" />
+              <div className="w-14 h-14 rounded-2xl bg-zinc-800 border border-zinc-600 flex items-center justify-center mb-6 group-hover:border-blue-500/30 group-hover:scale-110 transition-all">
+                <Building2 className="w-7 h-7 text-blue-400" />
               </div>
-              <h3 className="text-2xl font-bold text-white mb-2">
-                For Employers
-              </h3>
-              <p className="text-white/80 mb-6">
-                Browse profiles of skilled workers from India and swipe on candidates that fit your open roles.
+              <h3 className="text-2xl font-bold text-white mb-2">For Employers</h3>
+              <p className="text-zinc-400 mb-6">
+                Browse profiles of skilled workers from India and swipe on
+                candidates that fit your open roles.
               </p>
-              <motion.ul
-                className="space-y-2 mb-8"
-                variants={bulletContainerVariants}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-              >
+              <ul className="space-y-2.5 mb-8">
                 {[
-                  "Browse profiles free",
-                  "Pay only for access",
+                  "Browse profiles for free",
+                  "Pay only to unlock full access",
                   "Verified certifications on every profile",
                 ].map((item) => (
-                  <motion.li
-                    key={item}
-                    variants={bulletItemVariants}
-                    className="flex items-center gap-2 text-sm text-white/80"
-                  >
-                    <div className="w-1.5 h-1.5 rounded-full bg-teal" />
+                  <li key={item} className="flex items-center gap-2 text-sm text-zinc-400">
+                    <div className="w-1.5 h-1.5 rounded-full bg-blue-500/60" />
                     {item}
-                  </motion.li>
+                  </li>
                 ))}
-              </motion.ul>
+              </ul>
               <Button
+                variant="hero"
                 size="lg"
-                className="w-full bg-accent text-white hover:bg-accent/90"
+                className="w-full"
                 asChild
               >
                 <Link
@@ -160,7 +163,7 @@ const CTASection = () => {
                 </Link>
               </Button>
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>

@@ -1,22 +1,45 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useEffect, useRef } from "react";
+import { SpotlightCard } from "@/components/ui/spotlight-card";
 import { Check } from "lucide-react";
 
-const listContainerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.08 },
-  },
-};
-
-const listItemVariants = {
-  hidden: { opacity: 0, x: -10 },
-  visible: { opacity: 1, x: 0, transition: { duration: 0.3 } },
-};
-
 const BusinessModelSection = () => {
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReduced) return;
+
+    let ctx: ReturnType<typeof import("gsap")["default"]["context"]> | undefined;
+
+    (async () => {
+      const gsap = (await import("gsap")).default;
+      const { ScrollTrigger } = await import("gsap/ScrollTrigger");
+      gsap.registerPlugin(ScrollTrigger);
+
+      ctx = gsap.context(() => {
+        gsap.from(".bm-left", {
+          scrollTrigger: { trigger: ".bm-left", start: "top 85%" },
+          opacity: 0,
+          x: -30,
+          duration: 0.6,
+          ease: "power3.out",
+        });
+
+        gsap.from(".bm-right", {
+          scrollTrigger: { trigger: ".bm-right", start: "top 85%" },
+          opacity: 0,
+          x: 30,
+          duration: 0.6,
+          ease: "power3.out",
+        });
+      }, sectionRef);
+    })();
+
+    return () => { ctx?.revert(); };
+  }, []);
+
   const workerFeatures = [
     "Create & manage your profile",
     "Upload certifications & documents",
@@ -34,126 +57,103 @@ const BusinessModelSection = () => {
   ];
 
   return (
-    <section className="py-24 bg-background">
-      <div className="container mx-auto px-4">
+    <section ref={sectionRef} className="py-32 lg:py-40 bg-[#0F0F12]">
+      <div className="container mx-auto px-4 max-w-6xl">
         <div className="grid lg:grid-cols-2 gap-12 items-start">
           {/* Left: Text Content */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-          >
-            <span className="text-sm font-semibold text-accent uppercase tracking-wider">
+          <div className="bm-left">
+            <span className="text-sm font-semibold text-zinc-500 uppercase tracking-wider">
               Business Model
             </span>
-            <h2 className="mt-4 text-3xl md:text-4xl font-bold text-foreground">
+            <h2 className="mt-4 text-4xl md:text-5xl font-bold text-foreground tracking-tight">
               Free for Workers.
               <br />
-              <span className="text-gradient">Paid for Access.</span>
+              <span className="text-silver-matte">Paid for Access.</span>
             </h2>
-            <p className="mt-4 text-lg text-muted-foreground">
+            <p className="mt-4 text-base md:text-lg text-zinc-500 font-light leading-relaxed">
               EuroWorkMatch only facilitates digital introductions — we are not a
               staffing agency. The platform connects employers and candidates
               directly, with no employment responsibility.
             </p>
 
-            <div className="mt-8 p-6 rounded-2xl bg-muted/50 border border-border">
-              <h3 className="font-semibold text-foreground mb-4">
-                Who Pays What?
-              </h3>
-              <ul className="space-y-3">
-                <li className="flex items-center gap-3">
-                  <div className="w-6 h-6 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0">
-                    <Check className="w-4 h-4 text-accent" />
-                  </div>
-                  <span className="text-sm text-muted-foreground">
-                    <strong className="text-foreground">Workers:</strong> Always free — no hidden costs
-                  </span>
-                </li>
-                <li className="flex items-center gap-3">
-                  <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                    <Check className="w-4 h-4 text-primary" />
-                  </div>
-                  <span className="text-sm text-muted-foreground">
-                    <strong className="text-foreground">Employers:</strong> Browse free, pay to unlock & contact
-                  </span>
-                </li>
-              </ul>
-            </div>
-          </motion.div>
+            <SpotlightCard className="mt-8">
+              <div className="p-6">
+                <h3 className="font-semibold text-foreground mb-4">Who Pays What?</h3>
+                <ul className="space-y-3">
+                  <li className="flex items-center gap-3">
+                    <div className="w-6 h-6 rounded-full bg-green-500/10 flex items-center justify-center flex-shrink-0">
+                      <Check className="w-4 h-4 text-green-500" />
+                    </div>
+                    <span className="text-sm text-zinc-500">
+                      <strong className="text-foreground">Workers:</strong> Always free — no hidden costs
+                    </span>
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <div className="w-6 h-6 rounded-full bg-zinc-800 flex items-center justify-center flex-shrink-0">
+                      <Check className="w-4 h-4 text-zinc-400" />
+                    </div>
+                    <span className="text-sm text-zinc-500">
+                      <strong className="text-foreground">Employers:</strong> Browse free, pay to unlock & contact
+                    </span>
+                  </li>
+                </ul>
+              </div>
+            </SpotlightCard>
+          </div>
 
           {/* Right: Two-panel comparison */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="space-y-4"
-          >
+          <div className="bm-right space-y-4">
             {/* Workers panel */}
-            <div className="rounded-2xl border border-accent/30 overflow-hidden">
-              <div className="px-5 py-3 bg-accent/10 border-b border-accent/20 flex items-center justify-between">
-                <span className="text-sm font-semibold text-accent">🇮🇳 Workers</span>
-                <span className="text-xs font-bold text-accent bg-accent/10 px-2 py-0.5 rounded-full">Always Free</span>
+            <div className="rounded-2xl border border-green-500/20 overflow-hidden bg-[#1C1C22]">
+              <div className="px-5 py-3 bg-green-500/5 border-b border-green-500/10 flex items-center justify-between">
+                <span className="text-sm font-semibold text-green-400">🇮🇳 Workers</span>
+                <span className="text-xs font-bold text-green-400 bg-green-500/10 px-2 py-0.5 rounded-full">
+                  Always Free
+                </span>
               </div>
-              <motion.div
-                className="divide-y divide-border"
-                variants={listContainerVariants}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-              >
+              <div className="divide-y divide-white/[0.06]">
                 {workerFeatures.map((feat) => (
-                  <motion.div
-                    key={feat}
-                    variants={listItemVariants}
-                    className="flex items-center gap-3 px-5 py-3"
-                  >
-                    <div className="w-5 h-5 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0">
-                      <Check className="w-3 h-3 text-accent" />
+                  <div key={feat} className="flex items-center gap-3 px-5 py-3">
+                    <div className="w-5 h-5 rounded-full bg-green-500/10 flex items-center justify-center flex-shrink-0">
+                      <Check className="w-3 h-3 text-green-400" />
                     </div>
                     <span className="text-sm text-foreground">{feat}</span>
-                  </motion.div>
+                  </div>
                 ))}
-              </motion.div>
+              </div>
             </div>
 
             {/* Employers panel */}
-            <div className="rounded-2xl border border-border overflow-hidden">
-              <div className="px-5 py-3 bg-muted/50 border-b border-border flex items-center justify-between">
+            <div className="rounded-2xl border border-zinc-700 overflow-hidden bg-[#1C1C22]">
+              <div className="px-5 py-3 bg-white/[0.02] border-b border-zinc-700 flex items-center justify-between">
                 <span className="text-sm font-semibold text-foreground">🇪🇺 Employers</span>
-                <span className="text-xs font-bold text-primary bg-primary/10 px-2 py-0.5 rounded-full">Free + Paid</span>
+                <span className="text-xs font-bold text-zinc-400 bg-zinc-800 px-2 py-0.5 rounded-full">
+                  Free + Paid
+                </span>
               </div>
-              <motion.div
-                className="divide-y divide-border"
-                variants={listContainerVariants}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-              >
+              <div className="divide-y divide-white/[0.06]">
                 {employerFeatures.map((feat) => (
-                  <motion.div
-                    key={feat.label}
-                    variants={listItemVariants}
-                    className="flex items-center justify-between px-5 py-3"
-                  >
+                  <div key={feat.label} className="flex items-center justify-between px-5 py-3">
                     <div className="flex items-center gap-3">
-                      <div className={`w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 ${feat.paid ? "bg-primary/10" : "bg-accent/10"}`}>
-                        <Check className={`w-3 h-3 ${feat.paid ? "text-primary" : "text-accent"}`} />
+                      <div className={`w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 ${
+                        feat.paid ? "bg-zinc-800" : "bg-green-500/10"
+                      }`}>
+                        <Check className={`w-3 h-3 ${feat.paid ? "text-zinc-400" : "text-green-400"}`} />
                       </div>
                       <span className="text-sm text-foreground">{feat.label}</span>
                     </div>
                     <span className={`text-xs font-semibold px-2 py-0.5 rounded-full flex-shrink-0 ml-2 ${
                       feat.paid
-                        ? "bg-primary/10 text-primary"
-                        : "bg-accent/10 text-accent"
+                        ? "bg-zinc-800 text-zinc-400"
+                        : "bg-green-500/10 text-green-400"
                     }`}>
                       {feat.paid ? "Paid" : "Free"}
                     </span>
-                  </motion.div>
+                  </div>
                 ))}
-              </motion.div>
+              </div>
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>

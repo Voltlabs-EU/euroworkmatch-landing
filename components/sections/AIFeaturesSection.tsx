@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { useInView } from "framer-motion";
 import {
   Heart,
   MessageSquare,
@@ -9,6 +9,10 @@ import {
   BarChart2,
   Bell,
   UserCheck,
+  Zap,
+  Globe,
+  Users,
+  TrendingUp,
 } from "lucide-react";
 
 function CountUp({ target, suffix = "" }: { target: number; suffix?: string }) {
@@ -43,125 +47,246 @@ function CountUp({ target, suffix = "" }: { target: number; suffix?: string }) {
 }
 
 const AIFeaturesSection = () => {
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReduced) return;
+
+    let ctx: ReturnType<typeof import("gsap")["default"]["context"]> | undefined;
+
+    (async () => {
+      const gsap = (await import("gsap")).default;
+      const { ScrollTrigger } = await import("gsap/ScrollTrigger");
+      gsap.registerPlugin(ScrollTrigger);
+
+      ctx = gsap.context(() => {
+        gsap.fromTo(".aif-header",
+          { opacity: 0, y: 50 },
+          {
+            scrollTrigger: { trigger: ".aif-header", start: "top 85%", toggleActions: "play none none reverse" },
+            opacity: 1, y: 0, duration: 0.8, ease: "power3.out",
+          }
+        );
+
+        ScrollTrigger.batch(".bento-item", {
+          onEnter: (batch) =>
+            gsap.fromTo(batch,
+              { opacity: 0, y: 30, scale: 0.95 },
+              { opacity: 1, y: 0, scale: 1, stagger: 0.08, duration: 0.6, ease: "power3.out" }
+            ),
+          start: "top 88%",
+        });
+
+        gsap.fromTo(".aif-marquee",
+          { opacity: 0 },
+          {
+            scrollTrigger: { trigger: ".aif-marquee", start: "top 92%", toggleActions: "play none none reverse" },
+            opacity: 1, duration: 0.8, ease: "power3.out",
+          }
+        );
+      }, sectionRef);
+    })();
+
+    return () => { ctx?.revert(); };
+  }, []);
+
   const features = [
     {
       icon: Heart,
-      title: "Swipe on What Interests You",
-      description:
-        "Browse jobs or candidates and swipe right on what fits. A match only forms when both sides want it — no spam, no cold outreach.",
+      title: "Swipe Matching",
+      description: "Browse and swipe right on what fits. Match forms only when both sides want it.",
+      size: "bento-wide",
+      visual: (
+        <div className="flex items-center gap-3 mt-4">
+          <div className="flex -space-x-2">
+            {["RK", "AP", "SM"].map((init) => (
+              <div key={init} className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center text-[10px] font-bold text-white border-2 border-[#18181B]">
+                {init}
+              </div>
+            ))}
+          </div>
+          <span className="text-xs text-zinc-500">+847 active profiles</span>
+        </div>
+      ),
     },
     {
       icon: MessageSquare,
-      title: "Chat Directly After a Match",
-      description:
-        "A private chat opens the moment you match. Ask questions, share details, move fast — no agency or recruiter involved.",
+      title: "Direct Chat",
+      description: "Private messaging opens on match. No agency involved.",
+      size: "",
+      visual: (
+        <div className="mt-4 space-y-2">
+          <div className="bg-blue-600/20 rounded-lg rounded-bl-sm px-3 py-1.5 text-[11px] text-blue-300 max-w-[80%]">
+            Hi! I saw your profile — interested in the role?
+          </div>
+          <div className="bg-zinc-800 rounded-lg rounded-br-sm px-3 py-1.5 text-[11px] text-zinc-300 max-w-[80%] ml-auto">
+            Yes! When can we discuss?
+          </div>
+        </div>
+      ),
     },
     {
       icon: ShieldCheck,
-      title: "Show Real Proof, Not Just Claims",
-      description:
-        "Workers upload certificates and qualification documents. Employers see verified evidence before swiping — not just a job title.",
+      title: "Verified Profiles",
+      description: "Workers upload certificates. Employers see real proof, not claims.",
+      size: "",
+      visual: (
+        <div className="mt-4 flex items-center gap-2 px-3 py-2 rounded-lg bg-green-500/10 border border-green-500/20">
+          <ShieldCheck className="w-4 h-4 text-green-400" />
+          <span className="text-[11px] text-green-400 font-medium">3 documents verified</span>
+        </div>
+      ),
     },
     {
       icon: BarChart2,
-      title: "See How Your Profile Performs",
-      description:
-        "Track how many employers viewed or swiped on your profile. Know what's working and what to improve to get more matches.",
+      title: "Profile Analytics",
+      description: "Track views, swipes, and match rate. Know what works.",
+      size: "",
+      visual: (
+        <div className="mt-4 flex items-end gap-1 h-12">
+          {[40, 65, 45, 80, 60, 90, 75].map((h, i) => (
+            <div
+              key={i}
+              className="flex-1 rounded-t bg-gradient-to-t from-blue-600 to-blue-400 transition-all"
+              style={{ height: `${h}%` }}
+            />
+          ))}
+        </div>
+      ),
+    },
+    {
+      icon: TrendingUp,
+      title: "Personalised Job Feed",
+      description: "AI learns your preferences. The more you swipe, the smarter your feed gets.",
+      size: "",
+      visual: (
+        <div className="mt-4 space-y-1.5">
+          {[
+            { role: "HVAC Technician", loc: "Berlin", pct: 96 },
+            { role: "Refrigeration Engineer", loc: "Munich", pct: 91 },
+            { role: "Maintenance Lead", loc: "Vienna", pct: 87 },
+          ].map((job) => (
+            <div key={job.role} className="flex items-center justify-between px-2.5 py-1.5 rounded-lg bg-zinc-800/60 border border-white/[0.04]">
+              <div>
+                <div className="text-[10px] font-medium text-white">{job.role}</div>
+                <div className="text-[9px] text-zinc-500">{job.loc}</div>
+              </div>
+              <span className="text-[10px] font-bold text-blue-400">{job.pct}%</span>
+            </div>
+          ))}
+        </div>
+      ),
     },
     {
       icon: Bell,
-      title: "Get Notified When It Matters",
-      description:
-        "New job posted that fits your skills? You'll get an alert instantly. No need to check every day — we do that for you.",
+      title: "Smart Alerts",
+      description: "Get notified when a job matches your skills.",
+      size: "bento-wide",
+      visual: (
+        <div className="mt-4 flex items-center gap-3 px-3 py-2.5 rounded-xl bg-zinc-800/50 border border-white/[0.06]">
+          <div className="w-8 h-8 rounded-lg bg-blue-500/20 flex items-center justify-center flex-shrink-0">
+            <Zap className="w-4 h-4 text-blue-400" />
+          </div>
+          <div className="flex-1 min-w-0">
+            <div className="text-xs font-medium text-white">New job match: HVAC Technician</div>
+            <div className="text-[10px] text-zinc-500">TechLog GmbH · Berlin, Germany · 94% match</div>
+          </div>
+          <div className="w-2 h-2 rounded-full bg-blue-500 flex-shrink-0" />
+        </div>
+      ),
     },
     {
       icon: UserCheck,
-      title: "Build a Profile That Gets Seen",
-      description:
-        "A step-by-step completeness score guides you. The more you fill in, the higher you rank — and the more employers swipe right.",
+      title: "Completeness Score",
+      description: "Step-by-step guidance. More complete = more visible.",
+      size: "",
+      visual: (
+        <div className="mt-4">
+          <div className="flex justify-between text-[10px] text-zinc-500 mb-1.5">
+            <span>Profile Strength</span>
+            <span className="text-blue-400 font-bold">94%</span>
+          </div>
+          <div className="h-2 rounded-full bg-zinc-800 overflow-hidden">
+            <div className="h-full w-[94%] rounded-full bg-gradient-to-r from-blue-600 to-blue-400" />
+          </div>
+        </div>
+      ),
     },
   ];
 
+  const marqueeItems = [
+    { icon: Globe, text: "12+ EU Languages" },
+    { icon: Users, text: "Free for Workers" },
+    { icon: ShieldCheck, text: "GDPR Compliant" },
+    { icon: TrendingUp, text: "AI-Powered Matching" },
+    { icon: Zap, text: "Instant Notifications" },
+    { icon: MessageSquare, text: "Direct Messaging" },
+  ];
+
   return (
-    <section id="ai-features" className="py-24 bg-muted/30">
-      <div className="container mx-auto px-4">
-        {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
-          <span className="text-sm font-semibold text-accent uppercase tracking-wider">
+    <section id="ai-features" ref={sectionRef} className="py-32 lg:py-40 bg-[#0A0A0E] relative overflow-hidden">
+      {/* Background glow */}
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-blue-600/[0.04] rounded-full blur-[120px]" />
+
+      <div className="container mx-auto px-4 max-w-6xl relative">
+        {/* Header */}
+        <div className="aif-header text-center mb-16">
+          <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-xs font-semibold text-blue-400 uppercase tracking-wider mb-6">
             Platform Features
           </span>
-          <h2 className="mt-4 text-3xl md:text-4xl font-bold text-foreground">
-            Everything You Need.
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight">
+            Everything you need.
             <br />
-            <span className="text-gradient">Built Into the Platform.</span>
+            <span className="text-gradient-blue">One platform.</span>
           </h2>
-          <p className="mt-4 text-lg text-muted-foreground dark:text-slate-400 max-w-2xl mx-auto">
-            Matching, messaging, document verification, profile analytics, and more — all in one place.
+          <p className="mt-5 text-base md:text-lg text-zinc-500 font-light max-w-2xl mx-auto leading-relaxed">
+            Matching, messaging, document verification, profile analytics — all built in.
           </p>
-        </motion.div>
+        </div>
 
-        {/* Features Grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {features.map((feature, index) => (
-            <motion.div
+        {/* Bento Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {features.map((feature) => (
+            <div
               key={feature.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="group relative p-6 rounded-2xl bg-card border border-border hover:border-accent/40 transition-all duration-300 hover:shadow-elevated"
+              className={`bento-item group rounded-2xl bg-zinc-900/70 border border-white/[0.06] p-5 hover:border-blue-500/20 transition-all duration-500 relative overflow-hidden ${
+                feature.size === "bento-wide" ? "sm:col-span-2" : ""
+              }`}
             >
-              {/* Glow effect on hover */}
-              <div className="absolute inset-0 rounded-2xl bg-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-
-              <div className="relative">
-                <div className="w-12 h-12 rounded-xl bg-accent-gradient flex items-center justify-center mb-4 shadow-lg group-hover:shadow-glow group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300">
-                  <feature.icon className="w-6 h-6 text-white" />
+              <div className="flex items-start gap-3">
+                <div className="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center flex-shrink-0 group-hover:bg-blue-500/20 transition-colors">
+                  <feature.icon className="w-5 h-5 text-blue-400" />
                 </div>
-                <h3 className="text-lg font-semibold text-foreground mb-2">
-                  {feature.title}
-                </h3>
-                <p className="text-sm text-muted-foreground dark:text-slate-400 leading-relaxed">
-                  {feature.description}
-                </p>
+                <div className="flex-1 min-w-0">
+                  <h3 className="text-sm font-bold text-white mb-1">{feature.title}</h3>
+                  <p className="text-xs text-zinc-500 leading-relaxed">{feature.description}</p>
+                </div>
               </div>
-            </motion.div>
+              {feature.visual}
+
+              {/* Hover glow */}
+              <div className="absolute inset-0 rounded-2xl bg-blue-500/[0.02] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+            </div>
           ))}
         </div>
 
-        {/* Stats Bar */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mt-16 text-center"
-        >
-          <div className="inline-flex items-center gap-4 px-8 py-4 rounded-2xl bg-hero-gradient">
-            <div className="text-center">
-              <div className="text-4xl md:text-5xl font-bold text-white">
-                Free
+        {/* Marquee ticker */}
+        <div className="aif-marquee mt-16 relative overflow-hidden">
+          <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-[#0A0A0E] to-transparent z-10" />
+          <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-[#0A0A0E] to-transparent z-10" />
+          <div className="marquee-track">
+            {[...marqueeItems, ...marqueeItems].map((item, i) => (
+              <div
+                key={`${item.text}-${i}`}
+                className="flex items-center gap-2 px-6 py-3 mx-2 rounded-full bg-zinc-900/60 border border-white/[0.06] whitespace-nowrap"
+              >
+                <item.icon className="w-4 h-4 text-blue-400" />
+                <span className="text-sm text-zinc-400">{item.text}</span>
               </div>
-              <div className="text-sm text-white/70 mt-1">For Workers</div>
-            </div>
-            <div className="w-px h-12 bg-white/20" />
-            <div className="text-center">
-              <div className="text-4xl md:text-5xl font-bold text-white">
-                <CountUp target={12} suffix="+" />
-              </div>
-              <div className="text-sm text-white/70 mt-1">EU Languages</div>
-            </div>
-            <div className="w-px h-12 bg-white/20" />
-            <div className="text-center">
-              <div className="text-4xl md:text-5xl font-bold text-white">EU</div>
-              <div className="text-sm text-white/70 mt-1">Compliant</div>
-            </div>
+            ))}
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

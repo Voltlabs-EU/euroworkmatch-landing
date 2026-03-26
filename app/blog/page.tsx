@@ -17,11 +17,11 @@ export default function BlogPage() {
       <header className="border-b border-border bg-card sticky top-0 z-50">
         <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-lg bg-accent-gradient flex items-center justify-center">
-              <Globe className="w-5 h-5 text-accent-foreground" />
+            <div className="w-9 h-9 rounded-lg bg-zinc-800 border border-zinc-700 flex items-center justify-center">
+              <Globe className="w-5 h-5 text-zinc-200" />
             </div>
             <span className="text-lg font-bold text-foreground">
-              Euro<span className="text-accent">WorkMatch</span>
+              EuroWorkMatch
             </span>
           </Link>
           <Link
